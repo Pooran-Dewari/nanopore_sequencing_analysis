@@ -6,11 +6,13 @@
 #$ -q gpu
 #$ -pe gpu-a100 2
 
-
+# jump to the dir that contains guppy scripts, i.e. guppy's bin dir
 cd /exports/eddie/scratch/pdewari/ont-guppy/bin
 
-
+# INPUT_PATH has the nanopore fast5 files
 INPUT_PATH=/exports/eddie/scratch/pdewari/M1/20230922_1537_X1_FAT06260_25476510/fast5
+
+# SAVE_PATH dir will be creaed to save guppy basecall results, i.e. fastq files generated
 SAVE_PATH=/exports/eddie/scratch/pdewari/BaseCalled
 
 ./guppy_basecaller --input_path $INPUT_PATH  \
