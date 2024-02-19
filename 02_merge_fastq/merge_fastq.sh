@@ -1,18 +1,29 @@
-for barcode in */
+ls -d */ | xargs -n1 basename > dirs.txt
+
+OUTPUT="merged_pass"
+
+mkdir $OUTPUT
+
+while read barcode;
 
 do
 
  echo "merging $barcode"
  # step1: merge fastq.gz files
- subdir=$(basename "$barcode")
- cat $subdir/*.fastq.gz > $subdir/"$subdir".fastq.gz
+ cat $barcode/*.fastq.gz > $barcode/"$barcode".fastq.gz 
 
  # step2: validate merged file
- cd $subdir
+ cd $barcode
+ 
+ # first keep a copy of merged fastq file in $OUTPUT
+ cp "$barcode".fastq.gz ../$OUTPUT
+
+ echo "copied "$barcode".fastq.g --> $OUTPUT"
+
  wc -l *gz > wc.txt
 
  # Use awk to extract the first and last integers from the wc.txt file
- first=$(awk  -v pat="$subdir" '$2 ~ pat { print $1 }' wc.txt)
+ first=$(awk  -v pat="$barcode" '$2 ~ pat { print $1 }' wc.txt)
  last=$(awk '$2 ~ /total/ { print $1 }' wc.txt)
 
  # Check if either merged file or input files are empty!
@@ -31,4 +42,4 @@ do
  echo "............."
  echo "            "
 
-done
+done < dirs.txt
