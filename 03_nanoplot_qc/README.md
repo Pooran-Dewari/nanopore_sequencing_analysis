@@ -16,7 +16,8 @@
   #mamba install nanoplot ##### uncomment to install nanoplot
   ```
 
-- Run nanoplot
+- Change dir to merged fastq location and Run nanoplot
   ```
+  cd <path/to/merged/fastq/files>
   . nanoplot.sh
   ```
