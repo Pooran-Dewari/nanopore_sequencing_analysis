@@ -1,3 +1,5 @@
+# Save and run this script inside the dir that contains merged fastq files
+
 ls *gz  > fastq_files.txt
 
 OUTPUT="nanoplot_qc"
